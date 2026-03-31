@@ -30,10 +30,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000") // move it to appsettting later on
+            policy.AllowAnyOrigin()//WithOrigins("http://localhost:3000") // move it to appsettting later on
                   .AllowAnyHeader()
-                  .AllowAnyMethod()
-                  .AllowCredentials(); //it is required for SignalR
+                  .AllowAnyMethod();
+                  //.AllowCredentials(); //it is required for SignalR
         });
 });
 
@@ -41,6 +41,9 @@ builder.Services.AddSignalR();
 builder.Services.AddHostedService<AuctionTimerService>();
 
 var app = builder.Build();
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "80";
+app.Urls.Add($"http://*:{port}");
 
 app.MapHub<AuctionHub>("/auctionHub");
 

@@ -1,0 +1,16 @@
+47269823# Node (React)
+frontend/node_modules/
+frontend/build/
+
+# .NET
+backend/bin/
+backend/obj/
+backend/.vs/
+
+# Environment files
+.env
+*.env
+
+# OS files
+.DS_Store
+Thumbs.db
