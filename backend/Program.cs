@@ -42,9 +42,6 @@ builder.Services.AddHostedService<AuctionTimerService>();
 
 var app = builder.Build();
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "80";
-app.Urls.Add($"http://*:{port}");
-
 app.MapHub<AuctionHub>("/auctionHub");
 
 app.UseCors("AllowReactApp");
