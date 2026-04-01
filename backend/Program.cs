@@ -30,10 +30,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowReactApp",
         policy =>
         {
-            policy.AllowAnyOrigin()//WithOrigins("http://localhost:3000") // move it to appsettting later on
+            policy.WithOrigins("http://localhost:3000", "https://dancing-lolly-25fc01.netlify.app") // move it to appsettting later on
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
-                  //.AllowCredentials(); //it is required for SignalR
+                  .AllowAnyMethod()
+                  .AllowCredentials(); //it is required for SignalR
         });
 });
 
