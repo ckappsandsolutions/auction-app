@@ -27,7 +27,14 @@ namespace AuctionApp.Controllers
         [HttpGet]
         public IActionResult GetTeams()
         {
-            return Ok(_context.Teams.ToList());
+            try
+            {
+                return Ok(_context.Teams.ToList());
+            }
+            catch (Exception ex)
+            {
+                return Ok(new { error = ex.Message, inner = ex.InnerException?.Message });
+            }
         }
     }
 }
