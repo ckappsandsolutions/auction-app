@@ -40,6 +40,11 @@ builder.Services.AddCors(options =>
 builder.Services.AddSignalR();
 builder.Services.AddHostedService<AuctionTimerService>();
 
+builder.Services.Configure<HostOptions>(options =>
+{
+    options.BackgroundServiceExceptionBehavior = BackgroundServiceExceptionBehavior.Ignore;
+});
+
 var app = builder.Build();
 
 app.MapHub<AuctionHub>("/auctionHub");
@@ -53,7 +58,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.MapControllers();
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 
 //var summaries = new[]
