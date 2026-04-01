@@ -2,7 +2,7 @@ import * as signalR from "@microsoft/signalr";
 
 let connection = null;
 let startPromise = null;
-let BASE_URL = process.env.REACT_APP_API_URL || "https://localhost:7202/api"; 
+let BASE_URL = process.env.REACT_APP_API_URL || "https://localhost:7202"; 
 
 export const startConnection = async (auctionId, onEvent) => {
     //If already connected do nothing
