@@ -37,6 +37,11 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.AddRouting(options =>
+{
+    options.LowercaseUrls = true;
+});
+
 builder.Services.AddSignalR();
 builder.Services.AddHostedService<AuctionTimerService>();
 
