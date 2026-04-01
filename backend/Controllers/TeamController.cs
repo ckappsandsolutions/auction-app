@@ -6,7 +6,7 @@ namespace AuctionApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TeamController:ControllerBase
+    public class TeamController : ControllerBase
     {
         private readonly AppDbContext _context;
 
@@ -27,14 +27,7 @@ namespace AuctionApp.Controllers
         [HttpGet]
         public IActionResult GetTeams()
         {
-            try
-            {
-                return Ok(_context.Teams.ToList());
-            }
-            catch (Exception ex)
-            {
-                return Ok(new { error = ex.Message, inner = ex.InnerException?.Message });
-            }
+            return Ok(_context.Teams.ToList());
         }
     }
 }
