@@ -51,12 +51,12 @@ app.MapHub<AuctionHub>("/auctionHub");
 
 app.UseCors("AllowReactApp");
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+// }
 app.MapControllers();
 // app.UseHttpsRedirection();
 
