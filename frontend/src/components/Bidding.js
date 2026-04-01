@@ -9,7 +9,6 @@ const Bidding = () => {
 
     const [player, setPlayer] = useState(null);
     const [players, setPlayers] = useState([]);
-    const [playerStatus, setPlayerStatus] = useState(null);
     const [highestBid, setHighestBid] = useState(0);
     const [highestBidder, setHighestBidder] = useState("");
     const [endTime, setEndTime] = useState(null);
@@ -83,7 +82,6 @@ const Bidding = () => {
             setPlayer(data.player);
             setHighestBid(data.highestBid);
             setHighestBidder(data.highestBidder);
-            setPlayerStatus(data.status);
         }
         if (data.players) {
             setPlayers(data.players);

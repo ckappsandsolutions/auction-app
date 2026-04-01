@@ -1,4 +1,4 @@
-const BASE_URL = "https://localhost:7202/api"; // adjust port
+const BASE_URL = process.env.REACT_APP_API_URL || "https://localhost:7202/api"; 
 
 export const getTeams = async () => {
   const res = await fetch(`${BASE_URL}/team`);
