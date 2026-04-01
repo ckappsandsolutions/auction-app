@@ -15,9 +15,7 @@ export const startConnection = async (auctionId, onEvent) => {
     }
 
     connection = new signalR.HubConnectionBuilder()
-        .withUrl(`${BASE_URL}/auctionHub`, {
-            withCredentials: true
-        })
+        .withUrl(`${BASE_URL}/auctionHub`)
         .withAutomaticReconnect()
         .build();
 
