@@ -15,7 +15,7 @@ const Bidding = () => {
     const [timeLeft, setTimeLeft] = useState(0);
     const [isSold, setIsSold] = useState(false);
 
-    const auctionId = "5625653e-5945-453d-9b97-4003394de990";
+    const auctionId = "a70c8ade-bf22-47ee-9fb1-f508981a8805"; // hardcoded for now
 
     useEffect(() => {
         loadTeams();
