@@ -1,7 +1,11 @@
 using AuctionApp.Data;
 using AuctionApp.Hubs;
+using AuctionApp.Models;
 using AuctionApp.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,14 +17,38 @@ builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var jwtsetting = builder.Configuration.GetSection("Jwt");
+
+builder.Services.Configure<JwtSettings>(jwtsetting);
+
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateIssuerSigningKey = true,
+            ValidateLifetime = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(jwtsetting["SecretKey"]))
+        };
+    });
+builder.Services.AddAuthorization();
+
 // Add DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")).UseSnakeCaseNamingConvention());
+
+//add services
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 //builder.Services.AddControllers();
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true; //accept
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; //send data as 
         options.JsonSerializerOptions.ReferenceHandler =
             System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles; //Stop following circular references, we will use dto's later
     });
@@ -58,10 +86,10 @@ app.UseCors("AllowReactApp");
 // Configure the HTTP request pipeline.
 // if (app.Environment.IsDevelopment())
 // {
-    app.UseDeveloperExceptionPage(); 
-    app.MapOpenApi();
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseDeveloperExceptionPage();
+app.MapOpenApi();
+app.UseSwagger();
+app.UseSwaggerUI();
 // }
 app.MapControllers();
 // app.UseHttpsRedirection();
